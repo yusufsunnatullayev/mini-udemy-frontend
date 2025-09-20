@@ -1,0 +1,79 @@
+<nav class="w-full bg-white dark:shadow dark:bg-[#121212]">
+  <div class="w-full 2xl:w-[1520px] mx-auto flex items-center justify-between gap-20 py-4 px-20">
+    <div class="flex items-center gap-2">
+      <div
+        class="w-10 h-10 rounded-full flex items-center justify-center bg-main-blue text-white font-bold"
+      >
+        MU
+      </div>
+      <h1 class="text-xl font-bold text-main-blue">Mini Udemy</h1>
+    </div>
+    <div class="flex items-center gap-10">
+      @for(item of navbarItems; track item.id){
+      <a
+        [routerLink]="item.link"
+        routerLinkActive="!text-main-blue"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-main-gray text-base font-bold"
+        >{{ item.title }}</a
+      >
+      }
+    </div>
+    <div class="flex items-center gap-5">
+      <p-button (onClick)="toggleDarkMode()" variant="text" severity="info" [rounded]="true">
+        <ng-template pTemplate="icon">
+          <lucide-angular size="20" [name]="isDarkMode() ? MoonIcon : SunIcon" />
+        </ng-template>
+      </p-button>
+      <p-button
+        (onClick)="router.navigate(['/cart'])"
+        variant="text"
+        severity="info"
+        [rounded]="true"
+      >
+        <ng-template pTemplate="icon">
+          <lucide-angular size="20" [name]="ShoppingCartIcon" />
+        </ng-template>
+      </p-button>
+
+      @if(authStore.user()){
+      <div (click)="togglePopover($event)" class="flex items-center gap-3 cursor-pointer">
+        <div class="p-1 rounded-full border">
+          <lucide-icon [img]="UserIcon" [size]="20" class="my-icon"></lucide-icon>
+        </div>
+        <h1 class="text-sm font-semibold">
+          {{ authStore.user()?.fullName }}
+        </h1>
+      </div>
+
+      <p-popover #op styleClass="nav-popover">
+        <div class="w-[100px] flex flex-col gap-4">
+          <div>
+            <p-button
+              styleClass="nav-logout w-[100px]"
+              size="small"
+              label="Log out"
+              severity="danger"
+              (click)="logout()"
+            ></p-button>
+          </div>
+        </div>
+      </p-popover>
+      }@else {
+      <p-button
+        (onClick)="router.navigate(['/login'])"
+        label="Sign In"
+        variant="outlined"
+        [rounded]="true"
+        styleClass="!px-7"
+      />
+      <p-button
+        (onClick)="router.navigate(['/register'])"
+        label="Sign Up"
+        [rounded]="true"
+        styleClass="!px-7 !text-white"
+      />
+      }
+    </div>
+  </div>
+</nav>

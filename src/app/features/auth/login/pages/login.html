@@ -1,0 +1,90 @@
+<section data-aos="fade-up" class="w-[450px] h-full mx-auto py-16 flex flex-col items-center gap-5">
+  <div class="w-16 h-16 rounded-2xl bg-gradient flex items-center justify-center">
+    <lucide-icon [name]="UserCheckIcon" color="white" size="30"></lucide-icon>
+  </div>
+  <div class="w-full flex flex-col items-center gap-2">
+    <h1 class="text-3xl font-bold">Sign In to your <span class="text-gradient">Account</span></h1>
+    <p class="text-center text-base font-medium text-main-gray">
+      Start your Learning journey today with full access to our platform
+    </p>
+  </div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="w-full rounded-2xl bg-white dark:bg-main-dark p-7 flex flex-col gap-5 shadow"
+  >
+    <div class="relative w-full flex flex-col gap-2">
+      <label for="email" class="text-sm font-semibold text-main-gray">Email *</label>
+      <input
+        id="email"
+        pSize="large"
+        type="text"
+        placeholder="Enter your email address"
+        pInputText
+        class="!text-sm !shadow !bg-white dark:!bg-main-dark !rounded-lg !pl-9"
+        [invalid]="email?.invalid && email?.touched"
+        formControlName="email"
+      />
+      <lucide-icon
+        [name]="MailIcon"
+        size="20"
+        [color]="email?.invalid && email?.touched ? 'red' : 'gray'"
+        class="absolute bottom-1.5 left-1"
+      ></lucide-icon>
+    </div>
+    <div class="relative w-full flex flex-col gap-2">
+      <label for="password" class="text-sm font-semibold text-main-gray">Password *</label>
+      <input
+        id="password"
+        pSize="large"
+        [type]="isPasswordVisible() ? 'text' : 'password'"
+        placeholder="Enter your password"
+        pInputText
+        class="!text-sm !shadow !bg-white dark:!bg-main-dark !rounded-lg !pl-9"
+        [invalid]="password?.invalid && password?.touched"
+        formControlName="password"
+      />
+      <lucide-icon
+        [name]="LockIcon"
+        size="20"
+        [color]="password?.invalid && password?.touched ? 'red' : 'gray'"
+        class="absolute bottom-1.5 left-1"
+      ></lucide-icon>
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="absolute bottom-[10px] right-3 cursor-pointer"
+      >
+        <lucide-icon
+          [name]="isPasswordVisible() ? EyeOffIcon : EyeIcon"
+          size="20"
+          [color]="password?.invalid && password?.touched ? 'red' : 'gray'"
+        ></lucide-icon>
+      </button>
+    </div>
+    <button
+      [disabled]="!form.valid || authStore.loading()"
+      pButton
+      size="large"
+      class="!rounded-xl mt-2 bg-gradient !border-none !text-white flex items-center justify-center gap-2 !cursor-pointer"
+    >
+      @if(authStore.loading()){
+      <div
+        class="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"
+      ></div>
+      } @else {
+      <span pButtonLabel>Sign in</span>
+      <lucide-icon [name]="UserCheckIcon" size="20" color="white"></lucide-icon>
+
+      }
+    </button>
+    <p class="text-sm font-medium text-main-gray mx-auto">
+      Do not have an account?
+      <span
+        (click)="router.navigate(['/register'])"
+        class="text-main-blue cursor-pointer hover:underline"
+        >Sign up</span
+      >
+    </p>
+  </form>
+</section>

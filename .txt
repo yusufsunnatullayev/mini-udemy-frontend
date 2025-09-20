@@ -1,0 +1,50 @@
+src/
+├── app/
+│   ├── core/                      # Singleton services, interceptors, configs
+│   │   ├── guards/                # Route guards
+│   │   ├── interceptors/          # HTTP interceptors (auth, errors, etc.)
+│   │   ├── services/              # Core services (Auth, Logger, API wrapper)
+│   │   ├── config/                # App-wide configuration/constants
+│   │   ├── layouts/               # App shell layouts (main, auth, admin, etc.)
+│   │   └── core.module.ts         # ProvidedIn: 'root' or singletons
+│
+│   ├── shared/                    # Reusable UI & utilities
+│   │   ├── components/            # Reusable dumb/presentational components
+│   │   ├── directives/            # Shared directives
+│   │   ├── pipes/                 # Reusable pipes
+│   │   ├── utils/                 # Helper functions (pure TS)
+│   │   └── ui/                    # UI library (buttons, modals, loaders, etc.)
+│
+│   ├── features/                  # Business domain features (lazy-loaded)
+│   │   ├── auth/                  # Example feature (login, register, reset pwd)
+│   │   │   ├── pages/             # Standalone pages (LoginPage, RegisterPage)
+│   │   │   ├── components/        # Feature-specific components
+│   │   │   ├── services/          # Feature-specific services
+│   │   │   └── state/             # Signals/store for this feature
+│   │   ├── dashboard/             # Another feature module
+│   │   └── ...
+│
+│   ├── state/                     # Global app state (signals, NgRx, Akita, etc.)
+│   │   ├── auth/                  # Auth state
+│   │   ├── settings/              # Global settings
+│   │   └── app.store.ts           # Root state management setup
+│
+│   ├── app.config.ts              # Application-wide providers, routes, animations
+│   └── app.component.ts           # Root standalone component
+│
+├── assets/                        # Static assets (images, icons, translations)
+│   ├── i18n/                      # Translation JSON files
+│   └── ...
+│
+├── environments/                  # Environment configs (dev, prod, staging)
+│   ├── environment.ts
+│   ├── environment.prod.ts
+│   └── environment.staging.ts
+│
+├── styles/                        # Global SCSS/CSS
+│   ├── _variables.scss
+│   ├── _mixins.scss
+│   └── main.scss
+│
+├── index.html
+└── main.ts                        # Bootstrap with bootstrapApplication()

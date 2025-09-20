@@ -1,0 +1,25 @@
+<div class="w-full h-[250px] p-5 rounded-lg bg-white dark:bg-main-dark shadow flex flex-col gap-3">
+  <div class="w-full flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-full bg-main-blue flex items-center justify-center">
+        <lucide-icon [name]="UserIcon" color="white"></lucide-icon>
+      </div>
+      <h1 class="font-bold">{{ item()?.userName }}</h1>
+    </div>
+    <div class="flex items-center gap-1 mb-1">
+      <!-- Filled stars -->
+      @for (item of ratingsService.getFilledStars(item()?.rate); track $index) {
+      <img src="images/star-yellow.png" alt="yellow star" class="w-4 h-4 object-cover" />
+      }
+
+      <!-- Outlined stars -->
+      @for (item of ratingsService.getOutlinedStars(item()?.rate); track $index) {
+      <img src="images/star-gray.png" alt="gray star" class="w-4 h-4 object-cover" />
+      }
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <p class="text-sm text-main-gray dark:text-gray-300">{{ item()?.comment }}</p>
+  </div>
+</div>

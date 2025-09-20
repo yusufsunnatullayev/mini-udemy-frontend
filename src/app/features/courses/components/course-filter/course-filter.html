@@ -1,0 +1,47 @@
+<div class="relative w-1/2 mx-auto mb-14">
+  <lucide-icon
+    [name]="SearchIcon"
+    color="gray"
+    size="20"
+    class="absolute top-[5px] left-1.5"
+  ></lucide-icon>
+  <input
+    type="text"
+    pInputText
+    placeholder="Search course..."
+    class="!w-full !rounded-3xl !pl-10"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange($event)"
+  />
+</div>
+
+<div class="flex items-center gap-3">
+  <p-button size="small" (onClick)="clearFilter()" variant="outlined" severity="info">
+    <ng-template pTemplate="icon">
+      <lucide-angular size="20" [name]="FunnelIcon" />
+    </ng-template>
+  </p-button>
+  <p-select
+    variant="outlined"
+    size="small"
+    [options]="filterTypes"
+    [(ngModel)]="selectedFilterType"
+    optionLabel="name"
+    optionValue="code"
+    placeholder="Filter by..."
+    class="w-full md:w-56"
+    (onChange)="emitFilters()"
+  />
+
+  <p-select
+    variant="outlined"
+    size="small"
+    [options]="orderTypes"
+    [(ngModel)]="selectedOrderType"
+    optionLabel="name"
+    optionValue="code"
+    placeholder="Sort order..."
+    class="w-full md:w-56"
+    (onChange)="emitFilters()"
+  />
+</div>

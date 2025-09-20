@@ -1,0 +1,50 @@
+<div class="w-full flex flex-col items-center mt-10 gap-10">
+  <h1 class="text-3xl font-bold">Reviews</h1>
+  <!-- Reviews Carousel 🚩 -->
+  <p-carousel
+    [value]="course()?.reviews || []"
+    [numVisible]="3"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="4000"
+    [showIndicators]="false"
+    [showNavigators]="true"
+    class="w-full"
+  >
+    <ng-template pTemplate="item" let-review>
+      <div class="px-2">
+        <app-course-review-card [item]="review" />
+      </div>
+    </ng-template>
+  </p-carousel>
+
+  <!-- Add Review 🚩 -->
+  <div class="w-full md:w-1/2 flex flex-col gap-4">
+    <div class="w-full flex items-start gap-2">
+      <textarea
+        rows="1"
+        cols="30"
+        pTextarea
+        [(ngModel)]="value"
+        class="!flex-1 resize-none"
+        placeholder="Leave your review..."
+      ></textarea>
+      <p-select
+        [options]="rates"
+        [(ngModel)]="selectedRate"
+        optionLabel="name"
+        optionValue="code"
+        placeholder="Select a rate"
+        class="w-full md:w-56"
+      />
+    </div>
+    <p-button
+      [disabled]="isSubmitting()"
+      [loading]="isSubmitting()"
+      (onClick)="addReview()"
+      label="Submit"
+      [outlined]="true"
+      styleClass="!w-full"
+    />
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<section class="w-full h-full mx-auto 2xl:w-[1520px] flex flex-col px-20 gap-5 pt-10">
+  <!-- Filter component 🚩 -->
+  <app-courses-filter
+    [filterTypes]="filterTypes"
+    [orderTypes]="orderTypes"
+    (filtersChanged)="onFiltersChanged($event)"
+  />
+
+  @if(coursesService.loading()) {
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    @for (skeleton of skeletons; track $index) {
+    <app-course-card-skeleton />
+    }
+  </div>
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    @for (item of coursesService.courses(); track item.id) {
+    <app-course-card [course]="item" />
+    }
+  </div>
+</section>

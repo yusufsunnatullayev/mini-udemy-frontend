@@ -1,0 +1,20 @@
+<div class="w-full rounded-lg shadow flex flex-col p-5 bg-white dark:bg-main-dark">
+  <h2 class="text-xl font-semibold mb-5">Cart Summary</h2>
+  <div class="flex justify-between mb-3">
+    <span>Subtotal</span>
+    <span>{{ cartStore.getTotal() | currency }}</span>
+  </div>
+  <div class="flex justify-between mb-3">
+    <span>Tax</span>
+    <span>{{ 1.85 | currency }}</span>
+  </div>
+  <div class="border-t pt-3 flex justify-between font-bold text-lg">
+    <span>Total</span>
+    <span>{{ cartStore.getTotal() + 1.85 | currency }}</span>
+  </div>
+  <p-button
+    label="Buy"
+    size="large"
+    styleClass="!w-full !mt-4 bg-gradient !border-none !rounded-xl !text-white"
+  />
+</div>
