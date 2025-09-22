@@ -7,6 +7,8 @@
     <h1 class="font-semibold text-xl">{{ course()?.price | currency }}</h1>
   </div>
   <p-button
+    [disabled]="favouritesStore.isAdding()"
+    [loading]="favouritesStore.isAdding()"
     label="Add to favourities"
     [outlined]="true"
     size="large"
@@ -15,6 +17,8 @@
   />
 
   <button
+    [disabled]="cartSore.isAdding()"
+    [loading]="cartSore.isAdding()"
     (click)="addToCart()"
     pButton
     size="large"

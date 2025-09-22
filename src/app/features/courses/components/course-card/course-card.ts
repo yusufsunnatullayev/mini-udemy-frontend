@@ -18,7 +18,7 @@ import { CartStore } from '@app/features/cart/store/cart.store';
 })
 export class CourseCardComponent implements OnInit {
   private authStore = inject(AuthStore);
-  private cartStore = inject(CartStore);
+  readonly cartStore = inject(CartStore);
   private toastService = inject(ToastService);
   readonly favouritesStore = inject(FavouritesStore);
   readonly ratingsService = inject(RatingsService);

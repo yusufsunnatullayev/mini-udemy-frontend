@@ -37,13 +37,21 @@
   </div>
   <div class="w-full h-[1px] bg-gray-300 dark:bg-main-gray"></div>
   <div class="w-full px-3 py-1.5 flex items-center justify-end gap-2">
-    <p-button (onClick)="addToCart()" size="small" class="!text-white" variant="text">
+    <p-button
+      [disabled]="cartStore.isAdding()"
+      [loading]="cartStore.isAdding()"
+      (onClick)="addToCart()"
+      size="small"
+      class="!text-white"
+      variant="text"
+    >
       <ng-template pTemplate="content">
         <lucide-icon [img]="ShoppingCartIcon" [size]="16"></lucide-icon>
         +Add to cart
       </ng-template>
     </p-button>
     <p-button
+      [disabled]="favouritesStore.isAdding()"
       (onClick)="toggleFavvourite()"
       class="absolute top-1 right-1"
       variant="text"

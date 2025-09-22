@@ -3,6 +3,7 @@ import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { ToastService } from '@app/core/services/toast.service';
 import { AuthStore } from '@app/features/auth/store/auth.store';
 import { CartService } from '@app/features/cart/services/cart.service';
+import { CartStore } from '@app/features/cart/store/cart.store';
 import { ICourse } from '@app/features/courses/models/course.model';
 import { FavouritesStore } from '@app/features/favourites/store/favourites.store';
 import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
@@ -17,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 export class CourseDetailActionComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   readonly favouritesStore = inject(FavouritesStore);
+  readonly cartSore = inject(CartStore);
   private toastService = inject(ToastService);
   private cartService = inject(CartService);
   course = input<ICourse | null>(null);
@@ -35,16 +37,7 @@ export class CourseDetailActionComponent implements OnInit {
       userId: this.authStore.user()?.id || '',
       courseId: this.course()?.id || '',
     };
-    return this.cartService.addToCart(data).subscribe({
-      next: () => {
-        this.toastService.success('Success', 'Course added to cart!');
-        this.isAddingToCart.set(false);
-      },
-      error: (res) => {
-        this.toastService.error('Error', `${res.error.message || 'Failed to add course to cart'}`);
-        this.isAddingToCart.set(false);
-      },
-    });
+    return this.cartSore.addToCart(data)?.subscribe();
   }
 
   addToFavourite() {

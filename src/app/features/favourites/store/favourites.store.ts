@@ -9,11 +9,15 @@ import { ToastService } from '@app/core/services/toast.service';
 interface FavouritesState {
   favourites: IFavourite[];
   loading: boolean;
+  isAdding: boolean;
+  isRemoving: boolean;
 }
 
 const initialState: FavouritesState = {
   favourites: [],
   loading: false,
+  isAdding: false,
+  isRemoving: false,
 };
 
 export const FavouritesStore = signalStore(
@@ -39,15 +43,18 @@ export const FavouritesStore = signalStore(
         );
       },
       addToFavourites(data: IToFavourite) {
+        patchState(store, { isAdding: true });
         return favouritesService.addToFavourite(data).pipe(
           tap({
             next: (newFav: any) => {
               patchState(store, {
                 favourites: [...store.favourites(), newFav],
+                isAdding: false,
               });
               toastService.success('Success', 'Course addedd to favourities');
             },
             error: (res) => {
+              patchState(store, { isAdding: false });
               toastService.error('Error', `${res.error.message || 'Failed to add to favourities'}`);
             },
           })
@@ -55,6 +62,7 @@ export const FavouritesStore = signalStore(
       },
 
       removeFavourite(userId: string, courseId: string) {
+        patchState(store, { isRemoving: true });
         return favouritesService.deleteFavourite(userId, courseId).pipe(
           tap({
             next: () => {
@@ -62,10 +70,12 @@ export const FavouritesStore = signalStore(
                 favourites: store
                   .favourites()
                   .filter((fav) => fav.userId !== userId || fav.courseId !== courseId),
+                isRemoving: false,
               });
               toastService.success('Success', 'Course removed from favourities');
             },
             error: (res) => {
+              patchState(store, { isRemoving: false });
               toastService.error(
                 'Error',
                 `${res.error.message || 'Failed to remove from favourities'}`

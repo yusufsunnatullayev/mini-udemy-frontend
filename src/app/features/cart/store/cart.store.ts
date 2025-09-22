@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
 interface CartState {
   cart: ICart[];
   loading: boolean;
+  isAdding: boolean;
+  isRemoving: boolean;
 }
 
 const initialState: CartState = {
   cart: [],
   loading: false,
+  isAdding: false,
+  isRemoving: false,
 };
 
 export const CartStore = signalStore(
@@ -47,15 +51,18 @@ export const CartStore = signalStore(
           toastService.info('Info', 'Course is already in the cart!');
           return;
         }
+        patchState(store, { isAdding: true });
         return cartService.addToCart(data).pipe(
           tap({
             next: (newCartItem: any) => {
               patchState(store, {
                 cart: [...store.cart(), newCartItem],
+                isAdding: false,
               });
               toastService.success('Success', 'Course added to cart!');
             },
             error: (res) => {
+              patchState(store, { isAdding: false });
               toastService.error(
                 'Error',
                 `${res.error.message || 'Failed to add course to cart'!}`
@@ -66,15 +73,18 @@ export const CartStore = signalStore(
       },
 
       removeFromCart(id: string) {
+        patchState(store, { isRemoving: true });
         return cartService.deleteFromCart(id).pipe(
           tap({
             next: () => {
               patchState(store, {
                 cart: store.cart().filter((item) => item.id !== id),
+                isRemoving: false,
               });
               toastService.success('Success', 'Course removed from cart!');
             },
             error: (res) => {
+              patchState(store, { isRemoving: false });
               toastService.error(
                 'Error',
                 `${res.error.message || 'Failed to remove course from cart!'}`
