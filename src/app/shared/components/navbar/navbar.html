@@ -1,15 +1,15 @@
 <nav
-  class="w-full bg-white dark:shadow dark:bg-[#121212] flex items-center justify-between gap-20 py-4 px-20"
+  class="w-full bg-white dark:shadow dark:bg-[#121212] flex items-center justify-between gap-10 md:gap-20 py-4 px-2 md:px-20"
 >
   <div class="flex items-center gap-2">
     <div
-      class="w-10 h-10 rounded-full flex items-center justify-center bg-main-blue text-white font-bold"
+      class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center bg-main-blue text-white font-bold"
     >
       MU
     </div>
-    <h1 class="text-xl font-bold text-main-blue">Mini Udemy</h1>
+    <h1 class="text-lg md:text-xl font-bold text-main-blue">Mini Udemy</h1>
   </div>
-  <div class="flex items-center gap-10">
+  <div class="hidden md:flex items-center gap-10">
     @for(item of navbarItems; track item.id){
     <a
       [routerLink]="item.link"
@@ -20,7 +20,7 @@
     >
     }
   </div>
-  <div class="flex items-center gap-5">
+  <div class="flex items-center gap-1 md:gap-5">
     <p-button (onClick)="toggleDarkMode()" variant="text" severity="info" [rounded]="true">
       <ng-template pTemplate="icon">
         <lucide-angular size="20" [name]="isDarkMode() ? MoonIcon : SunIcon" />
@@ -38,7 +38,7 @@
     </p-button>
 
     @if(authStore.user()){
-    <div (click)="togglePopover($event)" class="flex items-center gap-3 cursor-pointer">
+    <div (click)="togglePopover($event)" class="hidden md:flex items-center gap-3 cursor-pointer">
       <div class="p-1 rounded-full border">
         <lucide-icon [img]="UserIcon" [size]="20" class="my-icon"></lucide-icon>
       </div>
@@ -66,13 +66,13 @@
       label="Sign In"
       variant="outlined"
       [rounded]="true"
-      styleClass="!px-7"
+      styleClass="!px-7 !hidden md:!flex"
     />
     <p-button
       (onClick)="router.navigate(['/register'])"
       label="Sign Up"
       [rounded]="true"
-      styleClass="!px-7 !text-white"
+      styleClass="!px-7 !text-white !hidden md:!flex"
     />
     }
   </div>

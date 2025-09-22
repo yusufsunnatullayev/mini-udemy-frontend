@@ -3,29 +3,29 @@
     <img
       [src]="item()?.course?.image"
       alt="course image"
-      class="w-20 h-20 rounded-md object-cover"
+      class="w-10 h-10 md:w-20 md:h-20 rounded-md object-cover"
     />
     <div class="flex flex-col">
-      <h1 class="font-semibold">{{ item()?.course?.title }}</h1>
-      <p class="text-xs text-main-gray line-clamp-2 w-80 mb-2">
+      <h1 class="text-sm md:text-lg font-semibold">{{ item()?.course?.title }}</h1>
+      <p class="text-[10px] w-40 md:text-xs text-main-gray line-clamp-2 md:w-80 mb-2">
         {{ item()?.course?.description }}
       </p>
       <div class="flex items-center gap-2">
-        <div class="flex items-center gap-2">
+        <div class="flex flex-col md:flex-row items-center gap-1 md:gap-2">
           <lucide-icon [name]="BookCheckIcon" color="gray" size="15"></lucide-icon>
-          <span class="text-xs text-main-gray font-semibold"
+          <span class="text-[10px] md:text-xs text-main-gray font-normal md:font-semibold"
             >{{ item()?.course?.lessons }} lessons</span
           >
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-col md:flex-row items-center gap-1 md:gap-2">
           <lucide-icon [name]="AlarmClockCheckIcon" color="gray" size="15"></lucide-icon>
-          <span class="text-xs text-main-gray font-semibold"
+          <span class="text-[10px] md:text-xs text-main-gray font-normal md:font-semibold"
             >{{ item()?.course?.hours }} hours</span
           >
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-col md:flex-row items-center gap-1 md:gap-2">
           <lucide-icon [name]="GlobeIcon" color="gray" size="15"></lucide-icon>
-          <span class="text-xs text-main-gray font-semibold"
+          <span class="text-[10px] md:text-xs text-main-gray font-normal md:font-semibold"
             >Language: {{ item()?.course?.language }}</span
           >
         </div>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="flex flex-col items-end gap-2">
-    <span class="font-bold text-lg">{{ item()?.course?.price | currency }}</span>
+    <span class="font-bold text-base md:text-lg">{{ item()?.course?.price | currency }}</span>
     <p-button
       (onClick)="cartStore.removeFromCart(item()?.id || '').subscribe()"
       variant="text"

@@ -39,7 +39,23 @@ export class CourseDetailReviewsComponent implements OnInit {
 
   isSubmitting = signal(false);
 
+  textareaRows = signal(3);
+  responsiveOptions = [
+    {
+      breakpoint: '1024px', // Below this screen width
+      numVisible: 3, // Show 3 items
+      numScroll: 1,
+    },
+    {
+      breakpoint: '768px', // Below this screen width
+      numVisible: 1, // Show 1 item
+      numScroll: 1,
+    },
+  ];
+
   ngOnInit() {
+    this.setTextareaRows();
+    window.addEventListener('resize', this.setTextareaRows.bind(this));
     this.rates = [
       { name: '5', code: '5' },
       { name: '4', code: '4' },
@@ -75,5 +91,10 @@ export class CourseDetailReviewsComponent implements OnInit {
         this.isSubmitting.set(false);
       },
     });
+  }
+
+  setTextareaRows() {
+    const width = window.innerWidth;
+    this.textareaRows.set(width >= 768 ? 1 : 3);
   }
 }

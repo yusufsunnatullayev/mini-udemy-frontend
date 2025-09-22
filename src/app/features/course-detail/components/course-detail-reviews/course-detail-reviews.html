@@ -9,6 +9,7 @@
     [autoplayInterval]="4000"
     [showIndicators]="false"
     [showNavigators]="true"
+    [responsiveOptions]="responsiveOptions"
     class="w-full"
   >
     <ng-template pTemplate="item" let-review>
@@ -20,13 +21,13 @@
 
   <!-- Add Review 🚩 -->
   <div class="w-full md:w-1/2 flex flex-col gap-4">
-    <div class="w-full flex items-start gap-2">
+    <div class="w-full flex flex-col md:flex-row items-start gap-2">
       <textarea
-        rows="1"
+        [rows]="textareaRows()"
         cols="30"
         pTextarea
         [(ngModel)]="value"
-        class="!flex-1 resize-none"
+        class="!flex-1 w-full resize-none"
         placeholder="Leave your review..."
       ></textarea>
       <p-select

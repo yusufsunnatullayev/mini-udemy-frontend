@@ -1,8 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { ToastService } from '@app/core/services/toast.service';
 import { AuthStore } from '@app/features/auth/store/auth.store';
-import { CartService } from '@app/features/cart/services/cart.service';
 import { CartStore } from '@app/features/cart/store/cart.store';
 import { ICourse } from '@app/features/courses/models/course.model';
 import { FavouritesStore } from '@app/features/favourites/store/favourites.store';
@@ -19,8 +17,6 @@ export class CourseDetailActionComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   readonly favouritesStore = inject(FavouritesStore);
   readonly cartSore = inject(CartStore);
-  private toastService = inject(ToastService);
-  private cartService = inject(CartService);
   course = input<ICourse | null>(null);
 
   ShoppingCartIcon = ShoppingCart;

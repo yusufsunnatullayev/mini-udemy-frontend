@@ -2,9 +2,9 @@
   class="sticky top-5 right-0 w-full flex flex-col bg-white dark:bg-main-dark rounded-lg p-5 shadow"
 >
   <div class="w-full flex items-end justify-between">
-    <h1 class="font-semibold text-xl">Price</h1>
+    <h1 class="font-semibold text-base md:text-xl">Price</h1>
     <div class="flex-1 border-b border-dashed"></div>
-    <h1 class="font-semibold text-xl">{{ course()?.price | currency }}</h1>
+    <h1 class="font-semibold text-base md:text-xl">{{ course()?.price | currency }}</h1>
   </div>
   <p-button
     [disabled]="favouritesStore.isAdding()"

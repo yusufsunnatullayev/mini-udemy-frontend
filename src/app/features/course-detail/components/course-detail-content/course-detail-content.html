@@ -2,50 +2,60 @@
   <img
     [src]="course()?.image"
     alt="course image"
-    class="w-full h-[400px] object-cover rounded-lg"
+    class="w-full h-[250px] md:h-[400px] object-cover rounded-lg"
   />
 
   <div class="w-full flex items-center justify-between">
-    <h1 class="text-3xl font-bold">{{ course()?.title }}</h1>
+    <h1 class="text-lg md:text-3xl font-bold">{{ course()?.title }}</h1>
     <div class="flex items-center gap-1 mb-1">
       <!-- Filled stars -->
       @for (item of ratingsService.getFilledStars(course()?.rating); track $index) {
-      <img src="images/star-yellow.png" alt="yellow star" class="w-7 h-7 object-cover" />
+      <img
+        src="images/star-yellow.png"
+        alt="yellow star"
+        class="w-4 h-4 md:w-7 md:h-7 object-cover"
+      />
       }
 
       <!-- Outlined stars -->
       @for (item of ratingsService.getOutlinedStars(course()?.rating); track $index) {
-      <img src="images/star-gray.png" alt="gray star" class="w-7 h-7 object-cover" />
+      <img src="images/star-gray.png" alt="gray star" class="w-4 h-4 md:w-7 md:h-7 object-cover" />
       }
     </div>
   </div>
-  <div class="flex items-center gap-5">
-    <div class="flex items-center gap-2">
+  <div class="flex items-center justify-between md:justify-start gap-5">
+    <div class="flex flex-col md:flex-row items-center gap-2">
       <lucide-icon [name]="BookCheckIcon" color="gray"></lucide-icon>
-      <span class="text-lg text-main-gray font-semibold">{{ course()?.lessons }} lessons</span>
+      <span class="text-sm md:text-lg text-main-gray font-semibold"
+        >{{ course()?.lessons }} lessons</span
+      >
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-col md:flex-row items-center gap-2">
       <lucide-icon [name]="AlarmClockCheckIcon" color="gray"></lucide-icon>
-      <span class="text-lg text-main-gray font-semibold">{{ course()?.hours }} hours</span>
+      <span class="text-sm md:text-lg text-main-gray font-semibold"
+        >{{ course()?.hours }} hours</span
+      >
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-col md:flex-row items-center gap-2">
       <lucide-icon [name]="GlobeIcon" color="gray"></lucide-icon>
-      <span class="text-lg text-main-gray font-semibold">Language: {{ course()?.language }}</span>
+      <span class="text-sm md:text-lg text-main-gray font-semibold"
+        >Language: {{ course()?.language }}</span
+      >
     </div>
   </div>
   <div class="w-full md:w-3/4 flex flex-col gap-3 mt-3">
-    <h1 class="text-xl font-bold">Description</h1>
-    <p>{{ course()?.description }}</p>
+    <h1 class="text-base md:text-xl font-bold">Description</h1>
+    <p class="text-xs md:text-lg">{{ course()?.description }}</p>
   </div>
   <div class="flex flex-col gap-3">
-    <h1 class="text-xl font-bold">Author</h1>
+    <h1 class="text-base md:text-xl font-bold">Author</h1>
     <div class="flex items-center gap-2">
       <img
         [src]="course()?.authorPic"
         alt="author picture"
         class="w-10 h-10 rounded-full object-cover"
       />
-      <h1 class="text-lg font-semibold">{{ course()?.author }}</h1>
+      <h1 class="text-base md:text-lg font-semibold">{{ course()?.author }}</h1>
     </div>
   </div>
 </div>

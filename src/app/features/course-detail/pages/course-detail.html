@@ -1,8 +1,8 @@
-<section class="w-full h-full 3xl:w-[2027px] mx-auto flex flex-col px-20 py-10">
+<section class="w-full h-full 3xl:w-[2027px] mx-auto flex flex-col px-2 md:px-20 py-7 md:py-10">
   @if(loading()) {
   <h1>Loading...</h1>
   } @else {
-  <div class="w-full flex items-start justify-between gap-10">
+  <div class="w-full flex flex-col md:flex-row items-start justify-between gap-10">
     <!-- Course Details 🚩  -->
     <div class="w-full md:w-3/4">
       <app-course-detail-content [course]="course()" />
