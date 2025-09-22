@@ -13,6 +13,7 @@
     <span>{{ cartStore.getTotal() + 1.85 | currency }}</span>
   </div>
   <p-button
+    (onClick)="onBuy()"
     label="Buy"
     size="large"
     styleClass="!w-full !mt-4 bg-gradient !border-none !rounded-xl !text-white"

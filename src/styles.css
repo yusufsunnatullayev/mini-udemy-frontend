@@ -11,6 +11,7 @@
   --color-main-light: #f8f8f8;
   --color-main-gray: #666666;
   --color-main-dark: #171616;
+  --breakpoint-3xl: 126.733rem;
 }
 
 body {

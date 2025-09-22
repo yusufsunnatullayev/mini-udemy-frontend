@@ -1,18 +1,20 @@
-<section class="w-full h-full mx-auto 2xl:w-[1520px] flex flex-col gap-7 px-20 py-10">
+<section class="w-full h-full flex flex-col gap-7 px-20 py-10">
   <h1 class="text-2xl font-bold">My Favourities</h1>
 
   @if(favouritesStore.loading()) {
-  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 3xl:grid-cols-5 gap-5">
     @for (skeleton of skeletons; track $index) {
     <app-course-card-skeleton />
     }
   </div>
-  }@else {
-  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+  }@else { @if(favouritesStore.favourites().length === 0) {
+  <app-no-data />
+  } @else {
+
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 3xl:grid-cols-5 gap-5">
     @for (item of favouritesStore.favourites(); track item.id) {
     <app-course-card [course]="item.course" />
     }
   </div>
-
-  }
+  } }
 </section>

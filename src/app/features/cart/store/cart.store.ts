@@ -86,7 +86,7 @@ export const CartStore = signalStore(
 
       clearCart() {
         store.cart().forEach((item) => {
-          this.removeFromCart(item.id).subscribe();
+          cartService.deleteFromCart(item.id).subscribe();
         });
         patchState(store, { cart: [] });
         router.navigate(['/courses']);

@@ -14,4 +14,8 @@ export class CartSummaryComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  onBuy() {
+    this.cartStore.clearCart();
+  }
 }

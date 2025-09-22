@@ -1,10 +1,21 @@
-<section class="w-full h-full mx-auto 2xl:w-[1520px] flex flex-col gap-7 py-10 px-20">
+<section class="w-full h-full flex flex-col gap-7 py-10 px-20">
   <h1 class="text-2xl font-bold">Shopping Cart</h1>
-  @if(cartStore.loading()){
-  <h1>Loading...</h1>
-  }
   <div class="w-full flex items-start justify-between gap-10">
     <!-- Cart Items 🚩 -->
+    @if(cartStore.loading()){
+    <div
+      class="w-full md:w-3/4 rounded-lg shadow flex flex-col gap-10 p-5 bg-white dark:bg-main-dark"
+    >
+      <app-cart-item-skeleton />
+      <app-cart-item-skeleton />
+      <app-cart-item-skeleton />
+    </div>
+    } @else { @if(cartStore.cart().length === 0) {
+    <div class="w-full">
+      <app-no-data />
+    </div>
+    } @else {
+
     <div
       class="w-full md:w-3/4 rounded-lg shadow flex flex-col gap-10 p-5 bg-white dark:bg-main-dark"
     >
@@ -12,6 +23,7 @@
       <app-cart-item-card [item]="item" />
       }
     </div>
+    } }
     <!-- Cart Summary 🚩 -->
     <div class="w-full md:w-1/4">
       <app-cart-summary />
