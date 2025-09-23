@@ -1,23 +1,32 @@
 import { Component, inject, OnInit, signal, ViewChild, OnDestroy } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { LucideAngularModule, Moon, Sun, User, ShoppingCart } from 'lucide-angular';
+import { LucideAngularModule, Moon, Sun, User, ShoppingCart, Menu } from 'lucide-angular';
 import { AuthService } from '@features/auth/services/auth.service';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { Subscription } from 'rxjs';
 import { AuthStore } from '@app/features/auth/store/auth.store';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
   standalone: true,
-  imports: [ButtonModule, RouterLink, RouterLinkActive, LucideAngularModule, PopoverModule],
+  imports: [
+    ButtonModule,
+    RouterLink,
+    RouterLinkActive,
+    LucideAngularModule,
+    PopoverModule,
+    DrawerModule,
+  ],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   readonly authStore = inject(AuthStore);
   authService = inject(AuthService);
   router = inject(Router);
   isDarkMode = signal(localStorage.getItem('mode') === 'dark');
+  visible = signal(false);
 
   @ViewChild('op') popover!: Popover;
 
@@ -45,6 +54,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   SunIcon = Sun;
   UserIcon = User;
   ShoppingCartIcon = ShoppingCart;
+  MenuIcon = Menu;
 
   ngOnInit(): void {
     const element = document.querySelector('html');
@@ -68,6 +78,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     this.authStore.logout();
     this.popover.hide();
+    this.visible.set(false);
+  }
+
+  navigateTo(path: string) {
+    this.visible.set(false);
+    this.router.navigate([path]);
   }
 
   toggleDarkMode() {
