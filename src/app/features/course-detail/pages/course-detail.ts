@@ -5,6 +5,7 @@ import { CoursesService } from '@app/features/courses/services/courses.service';
 import { CourseDetailContentComponent } from '../components/course-detail-content/course-detail-content';
 import { CourseDetailActionComponent } from '../components/course-detail-action/course-detail-action';
 import { CourseDetailReviewsComponent } from '../components/course-detail-reviews/course-detail-reviews';
+import { CourseDetailSkeletonComponent } from '../components/course-detail-skeleton/course-detail-skeleton';
 
 @Component({
   selector: 'app-course-detail',
@@ -14,6 +15,7 @@ import { CourseDetailReviewsComponent } from '../components/course-detail-review
     CourseDetailContentComponent,
     CourseDetailActionComponent,
     CourseDetailReviewsComponent,
+    CourseDetailSkeletonComponent,
   ],
 })
 export class CourseDetailComponent implements OnInit {

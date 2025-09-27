@@ -1,7 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { CookieServices } from '../services/cookie.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('access_token');
+  const cookieService = inject(CookieServices);
+  const token = cookieService.get('access_token');
 
   const authReq = token
     ? req.clone({

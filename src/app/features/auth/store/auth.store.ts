@@ -4,6 +4,7 @@ import { ILogin, IRegister, Profile } from '../models/auth.model';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '@app/core/services/toast.service';
 import { Router } from '@angular/router';
+import { CookieServices } from '@app/core/services/cookie.service';
 
 interface AuthState {
   user: Profile | null;
@@ -24,6 +25,7 @@ export const AuthStore = signalStore(
     const authService = inject(AuthService);
     const toastService = inject(ToastService);
     const router = inject(Router);
+    const cookieService = inject(CookieServices);
 
     return {
       login(data: ILogin) {
@@ -36,7 +38,7 @@ export const AuthStore = signalStore(
               loading: false,
             });
             localStorage.setItem('profile', JSON.stringify(profile));
-            localStorage.setItem('isAuthenticated', 'true');
+            cookieService.set('isAuthenticated', 'true');
 
             toastService.success('Success', 'You have logged in!');
             router.navigate(['/']);
@@ -58,7 +60,7 @@ export const AuthStore = signalStore(
               loading: false,
             });
             localStorage.setItem('profile', JSON.stringify(profile));
-            localStorage.setItem('isAuthenticated', 'true');
+            cookieService.set('isAuthenticated', 'true');
 
             toastService.success('Success', 'You have registered!');
             router.navigate(['/']);
@@ -73,14 +75,14 @@ export const AuthStore = signalStore(
       logout() {
         patchState(store, { user: null, isAuthenticated: false });
         localStorage.removeItem('profile');
-        localStorage.removeItem('isAuthenticated');
+        cookieService.remove('isAuthenticated');
         localStorage.removeItem('access_token');
         router.navigate(['/login']);
       },
 
       restoreSession() {
         const profileStr = localStorage.getItem('profile');
-        const isAuth = localStorage.getItem('isAuthenticated') === 'true';
+        const isAuth = cookieService.get('isAuthenticated') === 'true';
         if (profileStr && isAuth) {
           const profile: Profile = JSON.parse(profileStr);
           patchState(store, { user: profile, isAuthenticated: true });
