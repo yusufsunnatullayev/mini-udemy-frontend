@@ -16,7 +16,15 @@
 </div>
 
 <div class="flex items-center gap-3">
-  <p-button size="small" (onClick)="clearFilter()" variant="outlined" severity="info">
+  <p-button
+    size="small"
+    (onClick)="clearFilter()"
+    variant="outlined"
+    severity="info"
+    pTooltip="clear"
+    tooltipPosition="top"
+    [tooltipStyleClass]="'tiny-tooltip'"
+  >
     <ng-template pTemplate="icon">
       <lucide-angular size="20" [name]="FunnelIcon" />
     </ng-template>
@@ -24,7 +32,7 @@
   <p-select
     variant="outlined"
     size="small"
-    [options]="filterTypes"
+    [options]="filterTypes()"
     [(ngModel)]="selectedFilterType"
     optionLabel="name"
     optionValue="code"
@@ -36,7 +44,7 @@
   <p-select
     variant="outlined"
     size="small"
-    [options]="orderTypes"
+    [options]="orderTypes()"
     [(ngModel)]="selectedOrderType"
     optionLabel="name"
     optionValue="code"

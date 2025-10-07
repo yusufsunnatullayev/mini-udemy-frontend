@@ -26,23 +26,55 @@ export class CourseDetailComponent implements OnInit {
   courseId = signal('');
   course = signal<ICourse | null>(null);
 
-  constructor() {}
-
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.courseId.set(params.get('id')!);
+      const id = params.get('id');
+      if (id) {
+        this.courseId.set(id);
+        this.fetchCourseById(id);
+      }
     });
-    this.loading.set(true);
+  }
 
-    this.courseService.getCourseById(this.courseId()).subscribe({
+  fetchCourseById(id: string) {
+    this.loading.set(true);
+    this.courseService.getCourseById(id).subscribe({
       next: (data) => {
         this.course.set(data);
         this.loading.set(false);
-        console.log(data);
       },
-      error: () => {
-        this.loading.set(false);
-      },
+      error: () => this.loading.set(false),
     });
+  }
+
+  addReviewToList(newReview: any) {
+    const current = this.course();
+    if (!current) return;
+
+    const currentReviews = current.reviews || [];
+
+    const existingIndex = currentReviews.findIndex(
+      (r) => r.userId === newReview.userId && r.courseId === newReview.courseId
+    );
+
+    let updatedReviews;
+
+    if (existingIndex !== -1) {
+      updatedReviews = [...currentReviews];
+      updatedReviews[existingIndex] = newReview;
+    } else {
+      updatedReviews = [...currentReviews, newReview];
+    }
+
+    this.course.update(() => ({
+      ...current,
+      reviews: updatedReviews,
+    }));
+  }
+
+  refreshCourse() {
+    if (this.courseId()) {
+      this.fetchCourseById(this.courseId());
+    }
   }
 }

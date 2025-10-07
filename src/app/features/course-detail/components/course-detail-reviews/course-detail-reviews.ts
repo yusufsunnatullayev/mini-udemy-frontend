@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnInit, Output, signal } from '@angular/core';
 import { ICourse } from '@app/features/courses/models/course.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -30,6 +30,7 @@ export class CourseDetailReviewsComponent implements OnInit {
   private courseDetailService = inject(CourseDetailService);
   private toastService = inject(ToastService);
   readonly authStore = inject(AuthStore);
+  @Output() reviewAdded = new EventEmitter<any>();
   course = input<ICourse | null>(null);
 
   constructor() {}
@@ -80,9 +81,10 @@ export class CourseDetailReviewsComponent implements OnInit {
     };
 
     this.courseDetailService.addReview(data).subscribe({
-      next: () => {
+      next: (newReview) => {
         this.value = '';
         this.toastService.success('Success', 'Review added!');
+        this.reviewAdded.emit(newReview);
         this.isSubmitting.set(false);
       },
       error: (res) => {

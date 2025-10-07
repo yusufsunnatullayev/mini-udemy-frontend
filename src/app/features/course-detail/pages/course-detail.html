@@ -12,6 +12,6 @@
       <app-course-detail-action [course]="course()" />
     </div>
   </div>
-  <app-course-detail-reviews [course]="course()" />
+  <app-course-detail-reviews [course]="course()" (reviewAdded)="addReviewToList($event)" />
   }
 </section>

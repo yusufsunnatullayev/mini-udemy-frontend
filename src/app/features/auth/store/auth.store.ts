@@ -76,7 +76,7 @@ export const AuthStore = signalStore(
         patchState(store, { user: null, isAuthenticated: false });
         localStorage.removeItem('profile');
         cookieService.remove('isAuthenticated');
-        localStorage.removeItem('access_token');
+        cookieService.remove('access_token');
         router.navigate(['/login']);
       },
 

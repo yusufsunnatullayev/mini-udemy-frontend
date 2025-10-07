@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { Select } from 'primeng/select';
 import { LucideAngularModule, Search, Funnel } from 'lucide-angular';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface SelectOption {
   name: string;
@@ -14,14 +15,14 @@ interface SelectOption {
 @Component({
   selector: 'app-courses-filter',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ButtonModule, Select, LucideAngularModule],
+  imports: [FormsModule, InputTextModule, ButtonModule, Select, LucideAngularModule, TooltipModule],
   templateUrl: './course-filter.html',
 })
 export class CoursesFilterComponent implements OnDestroy {
-  @Input() filterTypes: SelectOption[] = [];
-  @Input() orderTypes: SelectOption[] = [];
+  filterTypes = input<SelectOption[]>([]);
+  orderTypes = input<SelectOption[]>([]);
 
-  @Output() filtersChanged = new EventEmitter<{
+  filtersChanged = output<{
     search: string;
     filter?: string;
     order?: string;
