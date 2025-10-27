@@ -21,12 +21,13 @@
     }
   </div>
   <div class="flex items-center gap-1 md:gap-5">
-    <p-button (onClick)="toggleDarkMode()" variant="text" severity="info" [rounded]="true">
+    <p-button ariaLabel="Change Theme Mode" (onClick)="toggleDarkMode()" variant="text" severity="info" [rounded]="true">
       <ng-template pTemplate="icon">
         <lucide-angular size="20" [name]="isDarkMode() ? MoonIcon : SunIcon" />
       </ng-template>
     </p-button>
     <p-button
+      ariaLabel="Go to Cart page"
       (onClick)="router.navigate(['/cart'])"
       variant="text"
       severity="info"
@@ -37,6 +38,7 @@
       </ng-template>
     </p-button>
     <p-button
+     ariaLabel="Menu button"
       (onClick)="visible.set(true)"
       variant="text"
       severity="info"
@@ -62,6 +64,7 @@
       <div class="w-[100px] flex flex-col gap-4">
         <div>
           <p-button
+           ariaLabel="Log out button"
             styleClass="nav-logout w-[100px]"
             size="small"
             label="Log out"
